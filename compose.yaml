@@ -1,0 +1,34 @@
+services:
+  db:
+    image: mariadb:10.7
+    environment:
+      MARIADB_ROOT_PASSWORD: rootpass
+      MARIADB_DATABASE: bbs
+      MARIADB_USER: testuser
+      MARIADB_PASSWORD: testpass
+      TZ: Asia/Tokyo
+    volumes:
+      - db-data:/var/lib/mysql
+  phpmyadmin:
+    image: phpmyadmin:5.2
+    depends_on:
+      - db
+    environment:
+      PMA_HOST: db
+      TZ: Asia/Tokyo
+    ports:
+      - "8080:80"
+    volumes:
+    - phpmyadmin-data:/sessions
+  apache:
+    build: .
+    depends_on:
+      - db
+    container_name: 'apache'
+    ports:
+      - "8000:80"
+    volumes:
+      - ./src:/var/www/html
+volumes:
+  db-data:
+  phpmyadmin-data:

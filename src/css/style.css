@@ -1,0 +1,350 @@
+@charset "utf-8";
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    min-width: 375px;
+}
+time {
+    font-style: italic;
+    font-size: 0.8em;
+}
+
+/* Login用 */
+.login-container,
+.check-container,
+.thanks-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px; /* デフォルトの幅 */
+}
+.login-container h1 {
+    font-size: 24px;
+    text-align: center;    
+}
+.login-container input {
+    margin: 10px 0;
+    padding: 10px;
+    width: 93%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.login-container button,
+.check-container button,
+.thanks-container button {
+    opacity: 0.8;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #495aa5;
+    color: white;
+    cursor: pointer;
+    width: 100%;
+    margin-bottom: 3px;
+}
+.login-container button:hover,
+.check-container button:hover,
+.thanks-container button:hover {
+    opacity: 1.0;
+}
+.login-container input[type="file"]::file-selector-button {
+    background-color: #495aa5;
+    color: #ccc;
+    margin-bottom: 40px;
+    border-radius: 4px;
+}
+.error {
+    color: red;
+}
+/* font awesome x-mark */
+.error::before {
+    font-family: "Font Awesome 6 free";
+    font-weight: 900;
+    content: "\f057";
+    padding-right: 10px;
+}
+.warning {
+    color: #dea412;
+}
+/* font awesome exclamation */
+.warning::before {
+    font-family: "Font Awesome 6 free";
+    font-weight: 900;
+    content: "\f071";
+    padding-right: 10px;
+}
+/* 確認画面 */
+.check-container form {
+    width: 100%;
+}
+.check-container dl {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+.check-container dt {
+    width: 97%;
+    padding: 3px 0 3px 5px;
+    background-color: #d0dfee;
+}
+.check-container dd {
+    width: 100%;
+    padding: 3px 0 5px 0;
+}
+.check-container .cancel {
+    opacity: 0.8;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #dea412;
+    color: white;
+    cursor: pointer;
+    width: 100%;
+}
+.check-container img {
+    width: 100px;
+    padding: 2px;
+    border: #555 solid 1px;
+}
+
+/*
+ 掲示板用
+ */
+.board-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 80%;
+    max-width: 800px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.exit {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}
+.exit a {
+    text-decoration: none;
+    font-size: xx-small;
+    color: red;
+}
+/* 投稿 */
+.mess {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border-bottom: 1px solid #eee;
+    padding: 10px 0 10px 0 ;
+}
+.mess textarea {
+    width: 80%;
+}
+.mess-actions button{
+    padding: 5px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007BFF;
+    color: white;
+    cursor: pointer;
+}
+/* 投稿メッセージ表示 */
+.post {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+}
+.post:last-child {
+    border-bottom: none;
+}
+.post-header {
+    display: flex;
+    justify-content: space-start;
+    align-items: center;
+}
+.post-header img {
+    border: 1px solid #ccc;
+    padding: 3px;
+}
+.post-header span {
+    padding-left: 20px;
+}
+.post-content {
+    margin: 10px 0;
+}
+/* いいね、コメント */
+.post-actions {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.post-actions button {
+    margin-right: 10px;
+    padding: 3px 5px;
+    border: none;
+    font-size: xx-small;
+    border-radius: 5px;
+    background-color: #529ae8;
+    color: white;
+    cursor: pointer;
+}
+.post-actions button:hover {
+    background-color: #0056b3;
+}
+/* いいね */
+.like-count {
+    margin: 0 10px 0 10px;
+    font-size: 14px;
+    color: #555;
+    display: flex;
+    align-items: center;
+}
+.post-info {
+    font-size: .75em;
+    text-align: right;
+    margin-left: 10px;
+}
+.post-info span {
+    margin: 0 10px 0 0;
+}
+.post-info i {
+    padding: 0 5px 0 10px;
+}
+.fa-red {
+    color: red;
+}
+
+/* 返信 */
+.replys {
+    display: none;
+    position: fixed;
+    z-index: 15;
+    top: 30%;
+    left: 50%;
+    width: 80%;
+    padding: 10px;
+    background-color: #888;
+    border-radius: 8px;
+    -webkit-transform: translate(-50%, -10%);
+    transform: translate(-50%, -10%);
+    color: #fff;
+    font-size: 1.3rem;
+    border: 0.3rem solid #fff;
+}
+.replys textarea {
+    width: 97%;
+    border: 1px solid #42d261;
+}
+.replys button{
+    padding: 0 5px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007BFF;
+    color: white;
+    cursor: pointer;
+}
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(152, 152, 152, 0.7);
+    width: 100%;
+    height: 100%;
+    z-index: 10;    
+}
+/* コメント表示 */
+.comments {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    font-size: small;
+    border-left: 5px solid #ccc;
+}
+.comment {
+    display: flex;
+    flex-direction: column;
+    padding: 5px 0;
+    border-top: 1px solid #eee;
+    margin-left: 20px; /* インデント */
+}
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.comment-content {
+    margin: 5px 0;
+}
+.comment-actions {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.comment-actions button {
+    margin-right: 10px;
+    padding: 3px 5px;
+    border: none;
+    font-size: xx-small;
+    border-radius: 5px;
+    background-color: #529ae8;
+    color: white;
+    cursor: pointer;
+}
+.comment-actions button:hover {
+    background-color: #0056b3;
+}
+.comment-like-count {
+    margin-left: 10px;
+    font-size: 14px;
+    color: #555;
+    display: flex;
+    align-items: center;
+}
+
+/* スマホ対応 */
+@media (max-width: 600px) {
+    .board-container,
+    .check-container,
+    .thanks-container {
+        width: 98%;
+        box-sizing: border-box;
+        margin: 10px;
+    }
+    .mess {
+        width:100%;
+    }
+    .mess textarea {
+        width: 100%;
+    }
+    .login-container {
+        width: 100%; /* スマホのときの幅 */
+        box-sizing: border-box; /* パディングとボーダーを含める */
+        margin: 10px; /* 画面端から少し余裕を持たせる */
+    }
+    .login-container button {
+        width: 98%;
+    }
+    .replys {
+        display: flex;
+        justify-content: flex-start;
+    }
+    .replys textarea {
+        width: 100%;
+    }
+}
