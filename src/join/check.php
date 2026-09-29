@@ -1,34 +1,37 @@
 <?php
-require('../dbconnect.php');
+require_once('../dbconnect.php');
 session_start();
 
-//index.php経由でない場合は登録に戻る
 if (!isset($_SESSION['join'])) {
-  header('Location: index.php');
-  exit();
+    header('Location: index.php');
+    exit();
 }
 
+$error = [];
+
 if (!empty($_POST)) {
-  $mname = $_SESSION['join']['name'];
-  $email = $_SESSION['join']['mail'];
-  $motopass = $_SESSION['join']['pass'];
-  $pass = password_hash($motopass,PASSWORD_DEFAULT); 
-  $image = $_SESSION['join']['image'];
-  try {
-      $statement = $db->prepare('insert into members (mname,email,pass,picture,created) values(?,?,?,?,now());');
-      $statement->bindParam(1, $mname,PDO::PARAM_STR);
-      $statement->bindParam(2, $email,PDO::PARAM_STR);
-      $statement->bindParam(3, $pass,PDO::PARAM_STR);
-      $statement->bindParam(4, $image,PDO::PARAM_STR);
-      $statement->execute();
-  } catch(PDOException $e) {
-      $error['insert'] = $e->getMessage();
-  }
-  if (empty($error)) {
-    header('Location: thanks.php');
-    exit();
-  }
+    if (!isset($_POST['csrf_token']) || !check_token($_POST['csrf_token'])) {
+        $error['insert'] = '不正なリクエストです';
+    } else {
+        $mname = $_SESSION['join']['name'];
+        $email = $_SESSION['join']['mail'];
+        $motopass = $_SESSION['join']['pass'];
+        $pass = password_hash($motopass, PASSWORD_DEFAULT);
+        $image = $_SESSION['join']['image'];
+
+        try {
+            $stmt = $db->prepare('INSERT INTO members (mname,email,pass,picture,created) VALUES (?,?,?,?,NOW())');
+            $stmt->execute([$mname, $email, $pass, $image]);
+            header('Location: thanks.php');
+            exit();
+        } catch (PDOException $e) {
+            error_log($e->getMessage());
+            $error['insert'] = '登録に失敗しました。時間をおいて再度お試しください。';
+        }
+    }
 }
+
+$csrf = generate_token();
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -44,31 +47,28 @@ if (!empty($_POST)) {
       <h1>登録確認画面</h1>
       <p>内容を確認してください</p>
       <form action="" method="post">
+        <input type="hidden" name="csrf_token" value="<?php echo h($csrf); ?>">
         <dl>
           <dt>ニックネーム</dt>
-          <dd>
-            <?php echo h($_SESSION['join']['name']); ?>
-          </dd>
+          <dd><?php echo h($_SESSION['join']['name']); ?></dd>
           <dt>メールアドレス</dt>
-          <dd>
-            <?php echo h($_SESSION['join']['mail']); ?>
-          </dd>
+          <dd><?php echo h($_SESSION['join']['mail']); ?></dd>
           <dt>パスワード</dt>
-          <dd>
-            表示しません
-          </dd>
+          <dd>表示しません</dd>
           <dt>画像データ</dt>
           <dd>
-            <img src="../member_image/<?php echo h($_SESSION['join']['image']); ?>" alt="">
+            <?php
+                $pic = basename($_SESSION['join']['image']);
+                if (!preg_match('/\.(jpg|jpeg|png|gif)$/i', $pic)) $pic = 'noimage.jpg';
+            ?>
+            <img src="../member_image/<?php echo h($pic); ?>" alt="">
           </dd>
         </dl>
         <button type="submit">登録</button>
-        <button type="button" class="cancel" 
-        onclick="location.href='index.php?mode=redo'">キャンセル</button>
+        <button type="button" class="cancel" onclick="location.href='index.php?mode=redo'">キャンセル</button>
         <?php if (isset($error['insert'])): ?>
-        <span class="error"><?php echo $error['insert']; ?></span>
+        <span class="error"><?php echo h($error['insert']); ?></span>
         <?php endif; ?>
-        <input type="hidden" name="mode" value="submit">
       </form>
     </div>
 </body>

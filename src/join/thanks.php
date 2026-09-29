@@ -1,16 +1,13 @@
 <?php
 session_start();
 
-//index.php経由でない場合は登録に戻る
 if (!isset($_SESSION['join'])) {
-  header('Location: index.php');
-  exit();
+    header('Location: index.php');
+    exit();
 }
 
-//ニックネーム取得
-$nick  = $_SESSION['join']['name'];
-
-//初期化
+$nick = $_SESSION['join']['name'] ?? '';
+// thanks表示後はセッションのjoinだけ削除
 unset($_SESSION['join']);
 ?>
 <!DOCTYPE html>
@@ -25,9 +22,8 @@ unset($_SESSION['join']);
 <body>
     <div class="thanks-container">
       <h1>登録完了画面</h1>
-      <p><?php echo $nick; ?>さんを登録しました</p>
-      <button type="button" class="submit" 
-      onclick="location.href='../'">LOGINへ</button>
+      <p><?php echo htmlspecialchars($nick, ENT_QUOTES, 'UTF-8'); ?>さんを登録しました</p>
+      <button type="button" class="submit" onclick="location.href='../login.php'">LOGINへ</button>
     </div>
 </body>
 </html>

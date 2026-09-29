@@ -1,6 +1,6 @@
 services:
   db:
-    image: mariadb:10.7
+    image: mariadb:11.4
     environment:
       MARIADB_ROOT_PASSWORD: rootpass
       MARIADB_DATABASE: bbs
@@ -9,6 +9,8 @@ services:
       TZ: Asia/Tokyo
     volumes:
       - db-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
   phpmyadmin:
     image: phpmyadmin:5.2
     depends_on:
@@ -16,10 +18,11 @@ services:
     environment:
       PMA_HOST: db
       TZ: Asia/Tokyo
+      UPLOAD_LIMIT: 20M
     ports:
       - "8080:80"
     volumes:
-    - phpmyadmin-data:/sessions
+      - phpmyadmin-data:/sessions
   apache:
     build: .
     depends_on:

@@ -1,20 +1,25 @@
 @charset "utf-8";
+/* Design 4: Soft Card Social - Instagram/Twitter風ふんわり掲示板
+   Flex only, 2026 modern */
 
 body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
     margin: 0;
-    font-family: Arial, sans-serif;
-    min-width: 375px;
-}
-time {
-    font-style: italic;
-    font-size: 0.8em;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans JP", sans-serif;
+    background: #F5F5F4;
+    color: #1C1917;
 }
 
-/* Login用 */
+time {
+    font-style: normal;
+    font-size: 0.8em;
+    color: #A8A29E;
+}
+
+/* 共通コンテナ */
 .login-container,
 .check-container,
 .thanks-container {
@@ -22,329 +27,205 @@ time {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 300px; /* デフォルトの幅 */
+    padding: 32px;
+    background: #fff;
+    border-radius: 24px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.06);
+    width: 360px;
+    margin-top: 60px;
 }
-.login-container h1 {
-    font-size: 24px;
-    text-align: center;    
-}
+
+.login-container h1 { font-size: 22px; font-weight: 700; letter-spacing: -0.02em; }
 .login-container input {
-    margin: 10px 0;
-    padding: 10px;
-    width: 93%;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    margin: 8px 0;
+    padding: 14px 16px;
+    width: 100%;
+    box-sizing: border-box;
+    border: none;
+    background: #F5F5F4;
+    border-radius: 12px;
+    font-size: 15px;
+    outline: none;
+    transition: 0.2s;
 }
+.login-container input:focus { background: #fff; box-shadow: 0 0 0 2px #1C1917; }
+
 .login-container button,
 .check-container button,
 .thanks-container button {
-    opacity: 0.8;
-    padding: 10px 20px;
+    padding: 14px 20px;
     border: none;
-    border-radius: 5px;
-    background-color: #495aa5;
-    color: white;
+    border-radius: 999px;
+    background: #1C1917;
+    color: #fff;
     cursor: pointer;
     width: 100%;
-    margin-bottom: 3px;
+    font-weight: 600;
+    margin-top: 12px;
+    transition: 0.2s;
 }
-.login-container button:hover,
-.check-container button:hover,
-.thanks-container button:hover {
-    opacity: 1.0;
-}
-.login-container input[type="file"]::file-selector-button {
-    background-color: #495aa5;
-    color: #ccc;
-    margin-bottom: 40px;
-    border-radius: 4px;
-}
-.error {
-    color: red;
-}
-/* font awesome x-mark */
+.login-container button:hover { opacity: 0.9; transform: translateY(-1px); }
+.check-container img { width: 120px; border-radius: 50%; object-fit: cover; margin-bottom: 16px; }
+.error { color: #DC2626; font-size: 13px; margin-top: 8px; }
 .error::before {
     font-family: "Font Awesome 6 free";
     font-weight: 900;
     content: "\f057";
-    padding-right: 10px;
-}
-.warning {
-    color: #dea412;
-}
-/* font awesome exclamation */
-.warning::before {
-    font-family: "Font Awesome 6 free";
-    font-weight: 900;
-    content: "\f071";
-    padding-right: 10px;
-}
-/* 確認画面 */
-.check-container form {
-    width: 100%;
-}
-.check-container dl {
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-}
-.check-container dt {
-    width: 97%;
-    padding: 3px 0 3px 5px;
-    background-color: #d0dfee;
-}
-.check-container dd {
-    width: 100%;
-    padding: 3px 0 5px 0;
-}
-.check-container .cancel {
-    opacity: 0.8;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    background-color: #dea412;
-    color: white;
-    cursor: pointer;
-    width: 100%;
-}
-.check-container img {
-    width: 100px;
-    padding: 2px;
-    border: #555 solid 1px;
 }
 
-/*
- 掲示板用
- */
+.warning { color: #D97706; font-size: 13px; }
+
+/* 掲示板 */
 .board-container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    width: 80%;
-    max-width: 800px;
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    gap: 16px;
+    width: 92%;
+    max-width: 640px;
+    margin: 24px 0 60px 0;
 }
-.exit {
-    display: flex;
-    justify-content: flex-end;
-    width: 100%;
-}
-.exit a {
-    text-decoration: none;
-    font-size: xx-small;
-    color: red;
-}
-/* 投稿 */
+
+.exit { display: flex; justify-content: flex-end; }
+.exit a { text-decoration: none; font-size: 12px; color: #A8A29E; background: #fff; padding: 6px 12px; border-radius: 999px; }
+
+/* 投稿フォーム */
 .mess {
     display: flex;
     flex-direction: column;
-    width: 100%;
-    border-bottom: 1px solid #eee;
-    padding: 10px 0 10px 0 ;
+    gap: 12px;
+    background: #fff;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
 }
 .mess textarea {
-    width: 80%;
-}
-.mess-actions button{
-    padding: 5px 20px;
+    width: 100%;
+    box-sizing: border-box;
     border: none;
-    border-radius: 5px;
-    background-color: #007BFF;
-    color: white;
+    background: #F5F5F4;
+    border-radius: 16px;
+    padding: 16px;
+    font-size: 15px;
+    line-height: 1.6;
+    resize: none;
+    outline: none;
+    font-family: inherit;
+}
+.mess textarea:focus { background: #fff; box-shadow: 0 0 0 2px #E7E5E4 inset; }
+.mess-actions { display: flex; justify-content: flex-end; }
+.mess-actions button {
+    background: #1C1917;
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    padding: 10px 22px;
+    font-weight: 600;
     cursor: pointer;
 }
-/* 投稿メッセージ表示 */
+
+/* 投稿カード */
 .post {
     display: flex;
     flex-direction: column;
-    width: 100%;
-    border-bottom: 1px solid #ccc;
-    padding: 10px 0;
+    gap: 12px;
+    background: #fff;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    transition: 0.2s;
 }
-.post:last-child {
-    border-bottom: none;
-}
+.post:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.08); }
+
 .post-header {
     display: flex;
-    justify-content: space-start;
     align-items: center;
+    gap: 12px;
 }
 .post-header img {
-    border: 1px solid #ccc;
-    padding: 3px;
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
 }
-.post-header span {
-    padding-left: 20px;
-}
+.post-header span { font-size: 14px; }
+.post-header span:first-of-type { font-weight: 600; }
+.post-info { margin-left: auto; }
+.post-info button { background: #F5F5F4; border: none; border-radius: 50%; width: 32px; height: 32px; cursor: pointer; }
+
 .post-content {
-    margin: 10px 0;
-}
-/* いいね、コメント */
-.post-actions {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-}
-.post-actions button {
-    margin-right: 10px;
-    padding: 3px 5px;
-    border: none;
-    font-size: xx-small;
-    border-radius: 5px;
-    background-color: #529ae8;
-    color: white;
-    cursor: pointer;
-}
-.post-actions button:hover {
-    background-color: #0056b3;
-}
-/* いいね */
-.like-count {
-    margin: 0 10px 0 10px;
-    font-size: 14px;
-    color: #555;
-    display: flex;
-    align-items: center;
-}
-.post-info {
-    font-size: .75em;
-    text-align: right;
-    margin-left: 10px;
-}
-.post-info span {
-    margin: 0 10px 0 0;
-}
-.post-info i {
-    padding: 0 5px 0 10px;
-}
-.fa-red {
-    color: red;
+    font-size: 15px;
+    line-height: 1.7;
+    color: #292524;
+    white-space: pre-wrap;
+    word-break: break-word;
 }
 
-/* 返信 */
-.replys {
-    display: none;
-    position: fixed;
-    z-index: 15;
-    top: 30%;
-    left: 50%;
-    width: 80%;
-    padding: 10px;
-    background-color: #888;
-    border-radius: 8px;
-    -webkit-transform: translate(-50%, -10%);
-    transform: translate(-50%, -10%);
-    color: #fff;
-    font-size: 1.3rem;
-    border: 0.3rem solid #fff;
-}
-.replys textarea {
-    width: 97%;
-    border: 1px solid #42d261;
-}
-.replys button{
-    padding: 0 5px;
+.post-actions { display: flex; gap: 8px; }
+.post-actions button {
+    background: #F5F5F4;
     border: none;
-    border-radius: 5px;
-    background-color: #007BFF;
-    color: white;
+    border-radius: 999px;
+    padding: 7px 14px;
+    font-size: 13px;
     cursor: pointer;
+    transition: 0.2s;
 }
+.post-actions button:hover { background: #E7E5E4; }
+
+/* モーダル */
 .modal {
     display: none;
     position: fixed;
-    top: 0;
-    left: 0;
-    background-color: rgba(152, 152, 152, 0.7);
-    width: 100%;
-    height: 100%;
-    z-index: 10;    
+    inset: 0;
+    background: rgba(28,25,23,0.35);
+    backdrop-filter: blur(8px);
+    z-index: 10;
+    align-items: center;
+    justify-content: center;
 }
-/* コメント表示 */
+.replys {
+    display: none;
+    width: 90%;
+    max-width: 480px;
+    background: #fff;
+    border-radius: 20px;
+    padding: 20px;
+    margin: 0 auto;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+}
+.replys textarea {
+    width: 100%;
+    box-sizing: border-box;
+    border: none;
+    background: #F5F5F4;
+    border-radius: 12px;
+    padding: 14px;
+    font-family: inherit;
+    resize: none;
+    outline: none;
+}
+.replys button { border: none; border-radius: 999px; padding: 8px 16px; cursor: pointer; font-weight: 600; margin-right: 8px; }
+.replys button[type="submit"] { background: #1C1917; color: #fff; }
+
+/* コメント */
 .comments {
     display: flex;
     flex-direction: column;
-    margin-top: 10px;
-    font-size: small;
-    border-left: 5px solid #ccc;
+    gap: 10px;
+    background: #FAFAF9;
+    border-radius: 16px;
+    padding: 12px 16px;
 }
-.comment {
-    display: flex;
-    flex-direction: column;
-    padding: 5px 0;
-    border-top: 1px solid #eee;
-    margin-left: 20px; /* インデント */
-}
+.comment { display: flex; flex-direction: column; gap: 4px; }
 .comment-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    font-size: 12px;
+    color: #78716C;
 }
-.comment-content {
-    margin: 5px 0;
-}
-.comment-actions {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-}
-.comment-actions button {
-    margin-right: 10px;
-    padding: 3px 5px;
-    border: none;
-    font-size: xx-small;
-    border-radius: 5px;
-    background-color: #529ae8;
-    color: white;
-    cursor: pointer;
-}
-.comment-actions button:hover {
-    background-color: #0056b3;
-}
-.comment-like-count {
-    margin-left: 10px;
-    font-size: 14px;
-    color: #555;
-    display: flex;
-    align-items: center;
-}
+.comment-content { font-size: 14px; line-height: 1.6; color: #44403C; }
 
-/* スマホ対応 */
+/* レスポンシブ */
 @media (max-width: 600px) {
-    .board-container,
-    .check-container,
-    .thanks-container {
-        width: 98%;
-        box-sizing: border-box;
-        margin: 10px;
-    }
-    .mess {
-        width:100%;
-    }
-    .mess textarea {
-        width: 100%;
-    }
-    .login-container {
-        width: 100%; /* スマホのときの幅 */
-        box-sizing: border-box; /* パディングとボーダーを含める */
-        margin: 10px; /* 画面端から少し余裕を持たせる */
-    }
-    .login-container button {
-        width: 98%;
-    }
-    .replys {
-        display: flex;
-        justify-content: flex-start;
-    }
-    .replys textarea {
-        width: 100%;
-    }
+    .board-container { width: 100%; padding: 0 12px; box-sizing: border-box; margin: 12px 0; }
+    .login-container { width: 92%; margin: 20px; }
 }
